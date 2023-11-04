@@ -8,7 +8,7 @@ export const Game = () => {
   const [restart, setRestart] = useState(false)
 
   function addRound() {
-    const newNumber = Math.floor(Math.random() * 4)
+    const newNumber = Math.floor(Math.random() * 5)
 
     setSequence(seq => {
       const newSeq = [...seq, newNumber]
@@ -28,15 +28,13 @@ export const Game = () => {
 
       if (sequence[seq.length] != number) {
         setRestart(true)
-        return []
-      }
-
-      if (newSeq.length == sequence.length) {
+      } else if (newSeq.length == sequence.length) {
         addRound()
-        return []
+      } else {
+        return newSeq
       }
 
-      return newSeq
+      return []
     })
   }
   
@@ -55,45 +53,66 @@ export const Game = () => {
 
         visible={restart}
       />
-      <Text>Amo Minha Mulher</Text>
-      <Text>{sequence.length}</Text>
 
-      <View>
-        <Pressable
-          style={style.pad}
-          onPress={() => playRound(0)}
-        >
-          <Text>1</Text>
-
-        </Pressable>
-
-        <Pressable
-          style={style.pad}
-          onPress={() => playRound(1)}
-        >
-          <Text>2</Text>
-
-        </Pressable>
-
-        <Pressable
-          style={style.pad}
-          onPress={() => playRound(2)}
-        >
-          <Text>3</Text>
-        </Pressable>
-
-        <Pressable
-          style={style.pad}
-          onPress={() => playRound(3)}
-        >
-          <Text>4</Text>
-        </Pressable>
+      <View style={{position: "absolute", top: 40}}>
+        <Text style={{fontSize: 70, fontWeight: "bold"}}>{sequence.length}</Text>
       </View>
 
-      <Button
-        title="Round"
-        onPress={() => addRound()}
-      />
+      <View style={style.padContainer}>
+        <View style={{flexBasis: "100%", alignItems: "center"}}>
+          <Pressable
+            style={{...style.vertical, ...style.top}}
+            onPress={() => playRound(0)}
+          >
+            <Text>1</Text>
+
+          </Pressable>  
+        </View>
+        
+        <View style={{flexBasis: "30%", alignItems: "center"}}>
+          <Pressable
+            style={{...style.horizontal, ...style.left}}
+            onPress={() => playRound(1)}
+          >
+            <Text>2</Text>
+          </Pressable>  
+        </View>
+
+        <View style={{flexBasis: "20%", alignItems: "center", margin: 6}}>
+          <Pressable
+            style={style.center}
+            onPress={() => playRound(2)}
+          >
+            <Text>3</Text>
+          </Pressable>  
+        </View>
+
+        <View style={{flexBasis: "30%", alignItems: "center"}}>
+          <Pressable
+            style={{...style.horizontal, ...style.right}}
+            onPress={() => playRound(3)}
+          >
+            <Text>4</Text>
+          </Pressable>  
+        </View>
+
+        <View style={{flexBasis: "100%", alignItems: "center"}}>
+          <Pressable
+            style={{...style.vertical, ...style.bottom}}
+            onPress={() => playRound(4)}
+          >
+            <Text>5</Text>
+
+          </Pressable>  
+        </View>
+
+        
+      </View>
+
+      <View style={{position: "absolute", bottom: 10, alignItems: "center"}}>
+        <Text style={{fontSize: 15, fontWeight: "bold"}}>Record</Text>
+        <Text style={{fontSize: 25, fontWeight: "bold"}}>50</Text>
+      </View>
     </View>
   )
 }
@@ -102,14 +121,78 @@ const style = StyleSheet.create({
   container : {
     height: "100%",
     width: "100%",
+
     display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
+    backgroundColor: "darkblue"
+  },
+  padContainer: {
+    width: 300,
+    height: 300,
+
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center"
   },
-  pad: {
-    border: "solid",
-    backgroundColor: "red",
+  //pads
+  vertical: {
     width: 50,
-    height: 50
+    height: 100,
+
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  horizontal: {
+    width: 100,
+    height: 50,
+
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  top: {
+    backgroundColor: "red",
+
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+    borderBottomStartRadius: 3,
+    borderBottomEndRadius: 3
+  },
+  bottom: {
+    backgroundColor: "blue",
+
+    borderTopEndRadius: 3,
+    borderTopStartRadius: 3,
+    borderBottomStartRadius: 25,
+    borderBottomEndRadius: 25
+  },
+  right: {
+    backgroundColor: "yellow",
+
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 3,
+    borderBottomStartRadius: 3,
+    borderBottomEndRadius: 25
+  },
+  left: {
+    backgroundColor: "green",
+
+    borderTopEndRadius: 3,
+    borderTopStartRadius: 25,
+    borderBottomStartRadius: 25,
+    borderBottomEndRadius: 3
+  },
+  center: {
+    backgroundColor: "purple",
+
+    width: 50,
+    height: 50,
+    borderRadius: 4,
+
+    justifyContent: "center",
+    alignItems: "center"
   }
 })

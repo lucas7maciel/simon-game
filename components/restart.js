@@ -41,8 +41,11 @@ const style = StyleSheet.create({
   },
   text: {
     position: "absolute",
-    left: 30,
-    bottom: "5%",
-    zIndex: 4
+    bottom: 40,
+    zIndex: 4,
+
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "white"
   }
 })
