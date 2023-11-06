@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Pressable, Text, StyleSheet, Animated } from "react-native"
 
 export const Restart = (props) => {
@@ -13,6 +13,10 @@ export const Restart = (props) => {
       }
     )
   ).start()
+
+  useEffect(() => {
+    console.log("Restart")
+  }, [])
 
   return props.visible ? (
     <Pressable 
@@ -36,16 +40,18 @@ const style = StyleSheet.create({
     height: "100%",
     width: "100%",
 
+    alignItems: "center",
+
     opacity: 0.5,
     backgroundColor: "black"
   },
   text: {
     position: "absolute",
-    bottom: 40,
+    bottom: 70,
     zIndex: 4,
 
     fontSize: 15,
     fontWeight: "bold",
-    color: "white"
+    color: "gray"
   }
 })

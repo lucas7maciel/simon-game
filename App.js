@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Home } from './pages/home';
 import { Game } from './pages/game';
+import { Teste } from './pages/teste';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,13 +11,18 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-          name="Home" 
-          component={Home} 
+          name="Game" 
+          component={Game} 
           options={{headerShown: false}} 
         />
         <Stack.Screen 
-          name="Game" 
-          component={Game} 
+          name="Teste" 
+          component={Teste} 
+          options={{headerShown: false}} 
+        />
+        <Stack.Screen 
+          name="Home" 
+          component={Home} 
           options={{headerShown: false}} 
         />
       </Stack.Navigator>
