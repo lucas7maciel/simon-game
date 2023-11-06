@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
-import { StyleSheet, Button, Text, View, Pressable } from "react-native"
+import { StyleSheet, Text, View, Pressable, Dimensions } from "react-native"
 import { Restart } from "../components/restart"
 
 export const Game = () => {
+  const {width, height} = Dimensions.get('window')
+
   const [sequence, setSequence] = useState([])
   const [yourSequence, setYourSequence] = useState([])
   const [restart, setRestart] = useState(false)
@@ -54,14 +56,14 @@ export const Game = () => {
         visible={restart}
       />
 
-      <View style={{position: "absolute", top: 40}}>
-        <Text style={{fontSize: 70, fontWeight: "bold"}}>{sequence.length}</Text>
+      <View style={{...style.pointsContainer, top: 0, height: height / 5}}>
+        <Text style={style.points}>{sequence.length}</Text>
       </View>
 
-      <View style={style.padContainer}>
+      <View style={{...style.gameContainer, top: height / 100 * 10, height: height / 100 * 45}}>
         <View style={{flexBasis: "100%", alignItems: "center"}}>
           <Pressable
-            style={{...style.vertical, ...style.top}}
+            style={{...pads.vertical, ...pads.top}}
             onPress={() => playRound(0)}
           >
             <Text>1</Text>
@@ -71,7 +73,7 @@ export const Game = () => {
         
         <View style={{flexBasis: "30%", alignItems: "center"}}>
           <Pressable
-            style={{...style.horizontal, ...style.left}}
+            style={{...pads.horizontal, ...pads.left}}
             onPress={() => playRound(1)}
           >
             <Text>2</Text>
@@ -80,7 +82,7 @@ export const Game = () => {
 
         <View style={{flexBasis: "20%", alignItems: "center", margin: 6}}>
           <Pressable
-            style={style.center}
+            style={pads.center}
             onPress={() => playRound(2)}
           >
             <Text>3</Text>
@@ -89,7 +91,7 @@ export const Game = () => {
 
         <View style={{flexBasis: "30%", alignItems: "center"}}>
           <Pressable
-            style={{...style.horizontal, ...style.right}}
+            style={{...pads.horizontal, ...pads.right}}
             onPress={() => playRound(3)}
           >
             <Text>4</Text>
@@ -98,7 +100,7 @@ export const Game = () => {
 
         <View style={{flexBasis: "100%", alignItems: "center"}}>
           <Pressable
-            style={{...style.vertical, ...style.bottom}}
+            style={{...pads.vertical, ...pads.bottom}}
             onPress={() => playRound(4)}
           >
             <Text>5</Text>
@@ -109,9 +111,13 @@ export const Game = () => {
         
       </View>
 
-      <View style={{position: "absolute", bottom: 10, alignItems: "center"}}>
-        <Text style={{fontSize: 15, fontWeight: "bold"}}>Record</Text>
-        <Text style={{fontSize: 25, fontWeight: "bold"}}>50</Text>
+      <View>
+
+      </View>
+
+      <View style={{...style.record, top: height / 100 * 95, width}}>
+        <Text style={style.record.title}>Record</Text>
+        <Text style={style.record.points}>50</Text>
       </View>
     </View>
   )
@@ -122,23 +128,48 @@ const style = StyleSheet.create({
     height: "100%",
     width: "100%",
 
-    display: "flex",
+    backgroundColor: "darkblue"
+  },
+  pointsContainer: {
     alignItems: "center",
     justifyContent: "center",
 
-    backgroundColor: "darkblue"
+    backgroundColor: "yellow"
   },
-  padContainer: {
-    width: 300,
-    height: 300,
+  points: {
+    fontSize: 70,
+    fontWeight: "bold"
+  },
 
+  gameContainer: {
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+
+    backgroundColor: "white"
   },
-  //pads
+
+  record: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "green",
+
+    title : {
+      fontSize: 15, 
+      fontWeight: "bold"
+    },
+
+    points : {
+      fontSize: 25, 
+      fontWeight: "bold"
+    }
+  }
+})
+
+const pads = StyleSheet.create ({
   vertical: {
     width: 50,
     height: 100,
