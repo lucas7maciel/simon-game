@@ -35,7 +35,7 @@ const style = StyleSheet.create({
     position: "absolute",
     left: 0,
     top: 0,
-    zIndex: 3,
+    zIndex: 10,
 
     height: "100%",
     width: "100%",
@@ -48,7 +48,7 @@ const style = StyleSheet.create({
   text: {
     position: "absolute",
     bottom: 70,
-    zIndex: 4,
+    zIndex: 11,
 
     fontSize: 15,
     fontWeight: "bold",

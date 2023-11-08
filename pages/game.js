@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react"
 import { StyleSheet, Text, View, Pressable, Dimensions, Animated, Easing } from "react-native"
 import { Restart } from "../components/restart"
+import { Pad, TopLeftPad } from "../components/pads";
 
 export const Game = () => {
+
   const {width, height} = Dimensions.get('window')
-  
   const gameHeight = height / 100 * 45
   
   let padMeasure = gameHeight >= width ? width : gameHeight //the lesser
@@ -12,7 +13,6 @@ export const Game = () => {
   padMeasure /= 2
 
   const padsMargin = 4
-
   const circle = padMeasure / 1.2
 
   //animations
@@ -24,77 +24,62 @@ export const Game = () => {
   const [padTop] = useState(new Animated.Value(gameHeight / 2 + padsMargin))
   const [padLeft] = useState(new Animated.Value(width / 2 + padsMargin))
 
+  const [borderOpacity] = useState(new Animated.Value(0))
+
+  const pressedAnim = Animated.sequence([
+    Animated.parallel([
+      Animated.timing(
+        borderOpacity, {
+          toValue: 1,
+          duration: 100,
+          useNativeDriver: true
+        }
+      )
+      // animate color
+    ]),
+    Animated.parallel([
+      Animated.timing(
+        borderOpacity, {
+          toValue: 0,
+          delay: 3000,
+          duration: 300,
+          useNativeDriver: true
+        }
+        // animate color
+      )
+    ])
+  ])
+
+  //states
   const [sequence, setSequence] = useState([])
   const [yourSequence, setYourSequence] = useState([])
   const [restart, setRestart] = useState(false)
 
-  Animated.sequence([
+  const [pressed, setPressed] = useState(-1)
+
     Animated.parallel([
       Animated.timing(
         animPadMeasure, {
           toValue: padMeasure - padsMargin,
-          duration: 8,
+          duration: 800,
           useNativeDriver: false
         }
       ),
       Animated.timing(
         animInvCircleLeft, {
           toValue: (width / 2) - ((padMeasure - padsMargin) / 2),
-          duration: 8,
+          duration: 800,
           useNativeDriver: false
         }
       ),
       Animated.timing(
         animInvCircleTop, {
           toValue: (gameHeight / 2) - ((padMeasure - padsMargin) / 2),
-          duration: 8,
+          duration: 800,
           useNativeDriver: false
         }
       )
-    ]), 
-    //spin
-    Animated.parallel([
-      Animated.timing(
-        animRotating, {
-          toValue: 1,
-          duration: 8,
-          easing: Easing.linear,
-          useNativeDriver: false
-        }
-      ),
-      Animated.sequence([
-        Animated.timing(
-          padTop, {
-            toValue: gameHeight / 2 - padMeasure,
-            duration: 2000,
-            easing: Easing.linear,
-            useNativeDriver: false
-          }
-        ), Animated.timing(
-          padLeft, {
-            toValue: width / 2 - padMeasure,
-            duration: 2000,
-            easing: Easing.linear,
-            useNativeDriver: false
-          }
-        ), Animated.timing(
-          padTop, {
-            toValue: gameHeight / 2 + padsMargin,
-            duration: 2000,
-            easing: Easing.linear,
-            useNativeDriver: false
-          },
-        ), Animated.timing(
-          padLeft, {
-            toValue: width / 2 + padsMargin,
-            duration: 2000,
-            easing: Easing.linear,
-            useNativeDriver: false
-          }
-        )
-      ])
-    ])
-  ]).start()
+    ]).start()
   
 
   const spin = animRotating.interpolate({
@@ -116,7 +101,11 @@ export const Game = () => {
   }
 
   function playRound(number) {
-    console.log(number)
+    playSound()
+    setPressed(number)
+    pressedAnim.start()
+
+    /*console.log(number)
 
     setYourSequence(seq => {
       const newSeq = [...seq, number]
@@ -130,7 +119,7 @@ export const Game = () => {
       }
 
       return []
-    })
+    })*/
   }
   
   useEffect(() => {
@@ -156,71 +145,75 @@ export const Game = () => {
       <View style={{...style.gameContainer, top: height / 100 * 8, height: height / 100 * 45}}>
         <Animated.View
           style={{position: "absolute", left: padLeft, top: padTop,
-                  width: animPadMeasure, height: animPadMeasure, zIndex: 16, 
-                  backgroundColor: "orange", transform: [{rotateZ: spin}]}}
+                  width: animPadMeasure, height: animPadMeasure, zIndex: 4}}
         >
           <Pressable
             class="bottom-right"
             onPress={() => playRound(0)}
-            style={{width: "100%", height: "100%", backgroundColor: "green", borderBottomEndRadius: padMeasure}}
+            style={{width: "100%", height: "100%", 
+                    backgroundColor: pressed == 0 ? "#7CFC00" : "green", 
+                    borderBottomEndRadius: padMeasure, 
+                    zIndex: 4}}
           />
         </Animated.View>
         
-        <Animated.View 
-          style={{position: "absolute", right: width / 2 + padsMargin, top: gameHeight / 2 + padsMargin,
-                  width: animPadMeasure, height: animPadMeasure, zIndex: 6}}>
-          <Pressable
-            class="bottom-left"
-            onPress={() => playRound(1)}
-            style={{width: "100%", height: "100%",
-                    borderBottomLeftRadius: padMeasure,
-                    backgroundColor: "yellow"}}
-          />
-        </Animated.View>
+        <Pad 
+          position={"bottom-left"}
+          height={gameHeight} width={width}
+          setSequence={() => setSequence}
+          color="yellow"
+        />
         
         <Animated.View 
           style={{position: "absolute", left: width / 2 + padsMargin, bottom: gameHeight / 2 + padsMargin,
-                  width: animPadMeasure, height: animPadMeasure, zIndex: 6}}>
+                  width: animPadMeasure, height: animPadMeasure, zIndex: 4}}>
           <Pressable
             class="top-right"
             onPress={() => playRound(2)}
             style={{width: "100%", height: "100%",
                     borderTopRightRadius: padMeasure,
-                    backgroundColor: "red"}}
+                    backgroundColor: pressed == 2 ? "purple" : "red", zIndex: 4}}
           />              
         </Animated.View>
 
         <Animated.View 
           style={{position: "absolute", right: width / 2 + padsMargin, bottom: gameHeight / 2 + padsMargin,
-                  width: animPadMeasure, height: animPadMeasure, zIndex: 6}}>
+                  width: animPadMeasure, height: animPadMeasure}}>
           <Pressable
             class="top-left"
             onPress={() => playRound(3)}
             style={{width: "100%", height: "100%",
                     borderTopLeftRadius: padMeasure,
-                    backgroundColor: "blue", zIndex: 6}}
+                    backgroundColor: pressed == 3 ? "red" : "blue", zIndex: 4 /*1*/}}
           />
-          <View
+          <Animated.View
             class="pressed-border"
-            style={{position: "absolute", right: -padsMargin / 2, bottom: -padsMargin / 2, 
+            style={/*pressed != 3 ? {display: "none"} :*/ {position: "absolute", right: -padsMargin / 2, bottom: -padsMargin / 2, 
                     width: padMeasure, height: padMeasure,
                     borderTopLeftRadius: padMeasure,
-                    backgroundColor: "purple", zIndex: 5}}
+                    backgroundColor: "white", zIndex: 3, opacity: borderOpacity}}
           />   
         </Animated.View>
         
 
         <Animated.View
-          class="invisible-circle"
+          class="invisible-circle-1"
           style={{position: "absolute", left: animInvCircleLeft, top: animInvCircleTop,
-                  borderRadius: padMeasure / 2, backgroundColor: "darkblue", width: animPadMeasure, height: animPadMeasure, zIndex: 8}} 
+                  borderRadius: padMeasure / 2, backgroundColor: "darkblue", width: animPadMeasure, height: animPadMeasure, zIndex: 5}} 
         />
+
+        <Animated.View
+          class="invisible-circle-2" 
+          style={{display: "none", position: "absolute", left: (width / 2) - ((padMeasure - (padsMargin * 2)) / 2), top: (gameHeight / 2) - ((padMeasure - (padsMargin * 2)) / 2),
+                  borderRadius: padMeasure / 2, backgroundColor: "darkblue", width: padMeasure - (padsMargin * 2), height: padMeasure - (padsMargin * 2), zIndex: 2}} 
+        >
+        </Animated.View>
 
         <Pressable
           class="circle"
           onPress={() => playRound(4)}
           style={{position: "absolute", left: (width / 2) - (circle / 2), top: (gameHeight / 2) - (circle / 2),
-                  borderRadius: circle / 2, backgroundColor: "purple", width: circle, height: circle, zIndex: 9}} 
+                  borderRadius: circle / 2, backgroundColor: pressed == 4 ? "blue" : "purple", width: circle, height: circle, zIndex: 5}} 
         />
 
       </View>
@@ -282,3 +275,18 @@ const pads = StyleSheet.create ({
 
   }
 })
+
+/*
+<Animated.View 
+          style={{position: "absolute", right: width / 2 + padsMargin, top: gameHeight / 2 + padsMargin,
+                  width: animPadMeasure, height: animPadMeasure, zIndex: 4}}>
+          <Pressable
+            class="bottom-left"
+            onPress={() => playRound(1)}
+            style={{width: "100%", height: "100%",
+                    borderBottomLeftRadius: padMeasure,
+                    backgroundColor: pressed == 1 ? "#FFE900" : "yellow", 
+                    zIndex: 4}}
+          />
+        </Animated.View>
+*/ 
