@@ -2,6 +2,12 @@ import { useState, useEffect, useRef } from "react"
 import { StyleSheet, Text, View, Dimensions, Animated, Button } from "react-native"
 import { Restart } from "../components/restart"
 import PadComponent from "../components/pads";
+import G from "../sounds/g_note.mp3"
+import A from "../sounds/a_note.mp3"
+import B from "../sounds/b_note.mp3"
+import C from "../sounds/c_note.mp3"
+import D from "../sounds/d_note.mp3"
+
 
 export const Game = () => {
   const {width, height} = Dimensions.get('window')
@@ -18,19 +24,22 @@ export const Game = () => {
   const ref5 = useRef()
   const refs = [ref1,ref2,ref3,ref4,ref5]
 
+  const sounds = [G, A, B, C, D]
+
   function addRound() {
     const newNumber = Math.floor(Math.random() * 5)
 
     setSequence(seq => {
-      const newSeq = [...seq, newNumber]
+      let newSeq = [...seq, newNumber]
 
       console.log("New Sequence")
       console.log(newSeq)
 
-      newSeq.forEach(async (el) => {
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        console.log(`Pressionando: ${el}`)
-        refs[el].current?.pressAnimation()
+      newSeq.forEach((el, index) => {
+        setTimeout(() => {
+          refs[el].current.pressAnimation()
+          console.log(`Pressionando ${el}`)
+        }, 800 * ++index)
       })
 
       return newSeq
@@ -72,7 +81,7 @@ export const Game = () => {
         visible={restart}
       />
 
-      <View style={{...style.pointsContainer, top: height / 20, height: height / 5}}>
+      <View style={{...style.pointsContainer, top: height / 100 * 6, height: height / 5}}>
         <Text style={style.points}>{sequence.length}</Text>
       </View>
 
@@ -82,6 +91,7 @@ export const Game = () => {
           height={gameHeight} width={width}
           setSequence={() => playRound(0)}
           ref={ref1}
+          sound={sounds[0]}
           color="blue"
         />
 
@@ -90,6 +100,7 @@ export const Game = () => {
           height={gameHeight} width={width}
           setSequence={() => playRound(1)}
           ref={ref2}
+          sound={sounds[1]}
           color="red"
         />
 
@@ -98,6 +109,7 @@ export const Game = () => {
           height={gameHeight} width={width}
           setSequence={() => playRound(2)}
           ref={ref3}
+          sound={sounds[2]}
           color="green"
         />
         
@@ -106,6 +118,7 @@ export const Game = () => {
           height={gameHeight} width={width}
           setSequence={() => playRound(3)}
           ref={ref4}
+          sound={sounds[3]}
           color="yellow"
         />
         
@@ -114,19 +127,17 @@ export const Game = () => {
           height={gameHeight} width={width}
           setSequence={() => playRound(4)}
           ref={ref5}
+          sound={sounds[4]}
           color={"purple"}
         />
 
       </View>
-        <Button 
-          title="A"
-          onPress={() => addRound()}
-        />
+        
       <View>
       </View>
 
-      <View style={{...style.record, top: height / 100 * 95, width}}>
-        <Text style={style.record.title}>Record</Text>
+      <View style={{...style.record, top: height / 100 * 93, width}}>
+        <Text style={style.record.title}>RECORD</Text>
         <Text style={style.record.points}>50</Text>
       </View>
     </View>

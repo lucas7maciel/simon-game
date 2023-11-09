@@ -2,21 +2,33 @@ import { useEffect, useState } from "react"
 import { Pressable, Text, StyleSheet, Animated } from "react-native"
 
 export const Restart = (props) => {
-  const [opacity, setOpacity] = useState(new Animated.Value(2))
+  const [opacity, setOpacity] = useState(new Animated.Value(0))
 
-  Animated.loop(
-    Animated.timing(
-      opacity, {
-        toValue: 0,
-        duration: 1100,
-        useNativeDriver: true
-      }
-    )
-  ).start()
+  const fontAnim = Animated.loop(
+    Animated.sequence([
+      Animated.timing(
+        opacity, {
+          toValue: 1,
+          duration: 600,
+          useNativeDriver: true
+        }
+      ),
+      Animated.timing(
+        opacity, {
+          toValue: 0,
+          delay: 1000,
+          duration: 600,
+          useNativeDriver: true,
+        }
+      )
+    ])
+  )
 
   useEffect(() => {
-    console.log("Restart")
-  }, [])
+    if (props.visible) fontAnim.start()
+    else fontAnim.stop()
+  }, [props.visible])
+
 
   return props.visible ? (
     <Pressable 

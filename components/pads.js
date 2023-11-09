@@ -12,6 +12,7 @@ const PadComponent = (props, ref) => {
   }))
 
   const [animPadMeasure] = useState(new Animated.Value(0))
+  const [padOpacity] = useState(new Animated.Value(0))
   const [borderOpacity] = useState(new Animated.Value(0))
 
   const [animInvCircleLeft] = useState(new Animated.Value(props.width / 2))
@@ -43,7 +44,8 @@ const PadComponent = (props, ref) => {
       width: "100%", height: "100%",
 
       [radiusCorner]: padMeasure,
-      backgroundColor: props.color, 
+      backgroundColor: props.color,
+      opacity: 1,//borderOpacity == 0 ? 1 : 0.2,
 
       zIndex: 7 //4
     },
@@ -73,7 +75,7 @@ const PadComponent = (props, ref) => {
       backgroundColor: props.color, 
       [radiusCorner]: circleMeasure / 2, 
  
-      zIndex: 6
+      zIndex: 7
     },
     invisibleCircle: {
       position: "absolute", 
@@ -83,10 +85,24 @@ const PadComponent = (props, ref) => {
       width: animPadMeasure, 
       height: animPadMeasure,
 
-      borderRadius: padMeasure / 2, 
+      borderRadius: circleMeasure, 
       backgroundColor: "darkblue", 
       
       zIndex: 5
+    },
+    circleBorder: {
+      position: "absolute",
+      left: (props.width / 2) - ((circleMeasure + 2) / 2),
+      top: (props.height / 2) - ((circleMeasure + 2) / 2),
+
+      width: circleMeasure + 2,
+      height: circleMeasure + 2,
+
+      borderRadius: circleMeasure / 2,
+      backgroundColor: "white",
+      opacity: borderOpacity,
+
+      zIndex: 6
     }
   })
 
@@ -123,8 +139,14 @@ const PadComponent = (props, ref) => {
           duration: 100,
           useNativeDriver: true
         }
+      ),
+      Animated.timing(
+        padOpacity, {
+          toValue: 0.2,
+          duration: 100,
+          useNativeDriver: true
+        }
       )
-      // animate color
     ]),
     Animated.parallel([
       Animated.timing(
@@ -133,14 +155,20 @@ const PadComponent = (props, ref) => {
           delay: 200,
           duration: 250,
           useNativeDriver: true
+        },
+        padOpacity, {
+          toValue: 1,
+          delay: 200,
+          duration: 250,
+          useNativeDriver: true
         }
-        // animate color
       )
     ])
   ])
 
   async function playSound() {
-    const {sound} = await Audio.Sound.createAsync(require('../sounds/c_chord.mp3'));
+
+    const {sound} = await Audio.Sound.createAsync(require("../sounds/c_note.mp3"))
     setSound(sound);
     await sound.playAsync();
   }
@@ -153,6 +181,7 @@ const PadComponent = (props, ref) => {
   }
 
   return props.position != "circle" ? (
+    <>
     <Animated.View 
       style={style.container}>
 
@@ -166,6 +195,7 @@ const PadComponent = (props, ref) => {
         style={style.border}
       />   
     </Animated.View>
+    </>
   ) : (
     <>
     <Pressable 
@@ -176,6 +206,10 @@ const PadComponent = (props, ref) => {
 
     <Animated.View
       style={style.invisibleCircle} 
+    />
+
+    <Animated.View 
+      style={style.circleBorder}
     />
     </>
   )
