@@ -1,12 +1,21 @@
-import { useEffect, useState } from "react"
+import { useState, useImperativeHandle, forwardRef } from "react"
 import { Pressable, StyleSheet, Animated, View } from "react-native"
 import { Audio } from 'expo-av';
 
-export const Pad = (props) => {
+const PadComponent = (props, ref) => {
+  useImperativeHandle(ref, () => ({
+    pressAnimation: () => {
+      playSound()
+      pressedAnim?.start()
+      console.log(props.position)
+    }
+  }))
+
   const [animPadMeasure] = useState(new Animated.Value(0))
   const [borderOpacity] = useState(new Animated.Value(0))
-  const [animInvCircleLeft] = useState(new Animated.Value(0))
-  const [animInvCircleTop] = useState(new Animated.Value(0))
+
+  const [animInvCircleLeft] = useState(new Animated.Value(props.width / 2))
+  const [animInvCircleTop] = useState(new Animated.Value(props.height / 2))
 
   const [sound, setSound] = useState()
 
@@ -14,6 +23,8 @@ export const Pad = (props) => {
   let padMeasure = Math.min(props.height, props.width)
   padMeasure -= padMeasure / 100 * 8
   padMeasure /= 2
+
+  const circleMeasure = padMeasure / 1.2
 
   const rightOrLeft = properties[props.position]["rightOrLeft"]
   const topOrBottom = properties[props.position]["topOrBottom"]
@@ -34,10 +45,11 @@ export const Pad = (props) => {
       [radiusCorner]: padMeasure,
       backgroundColor: props.color, 
 
-      zIndex: 7//4
+      zIndex: 7 //4
     },
     border: {
       position: "absolute", 
+
       [rightOrLeft]: -padsMargin / 2, 
       [topOrBottom]: -padsMargin / 2,
 
@@ -49,7 +61,33 @@ export const Pad = (props) => {
       opacity: borderOpacity, 
 
       zIndex: 3
-    } 
+    },
+    circle: {
+      position: "absolute",
+      [rightOrLeft]: (props.width / 2) - (circleMeasure / 2), 
+      [topOrBottom]: (props.height / 2) - (circleMeasure / 2),
+
+      width: circleMeasure, 
+      height: circleMeasure,
+
+      backgroundColor: props.color, 
+      [radiusCorner]: circleMeasure / 2, 
+ 
+      zIndex: 6
+    },
+    invisibleCircle: {
+      position: "absolute", 
+      left: animInvCircleLeft, 
+      top: animInvCircleTop,
+
+      width: animPadMeasure, 
+      height: animPadMeasure,
+
+      borderRadius: padMeasure / 2, 
+      backgroundColor: "darkblue", 
+      
+      zIndex: 5
+    }
   })
 
   //Animations
@@ -60,7 +98,7 @@ export const Pad = (props) => {
         duration: 800,
         useNativeDriver: false
       }
-    )/*,
+    ),
     Animated.timing(
       animInvCircleLeft, {
         toValue: (props.width / 2) - ((padMeasure - padsMargin) / 2),
@@ -74,7 +112,7 @@ export const Pad = (props) => {
         duration: 800,
         useNativeDriver: false
       }
-    )*/
+    )
   ]).start()
 
   const pressedAnim = Animated.sequence([
@@ -92,8 +130,8 @@ export const Pad = (props) => {
       Animated.timing(
         borderOpacity, {
           toValue: 0,
-          delay: 3000,
-          duration: 300,
+          delay: 200,
+          duration: 250,
           useNativeDriver: true
         }
         // animate color
@@ -111,30 +149,15 @@ export const Pad = (props) => {
   function playRound() {
     playSound()
     pressedAnim.start()
-
-    /*const number = 1
-    console.log(number)
-
-    props.setSequence(seq => {
-      const newSeq = [...seq, number]
-
-      if (sequence[seq.length] != number) {
-        console.log("restart") //setRestart(true)
-      } else if (newSeq.length == sequence.length) {
-        addRound()
-      } else {
-        return newSeq
-      }
-
-      return []
-    })*/
+    props.setSequence()
   }
 
-  return (
+  return props.position != "circle" ? (
     <Animated.View 
       style={style.container}>
 
       <Pressable
+        ref={props.reference}
         onPress={() => playRound()}
         style={style.pad}
       />
@@ -143,13 +166,47 @@ export const Pad = (props) => {
         style={style.border}
       />   
     </Animated.View>
+  ) : (
+    <>
+    <Pressable 
+      ref={props.reference}
+      onPress={() => playRound()}
+      style={style.circle}
+    />
+
+    <Animated.View
+      style={style.invisibleCircle} 
+    />
+    </>
   )
 }
+
+export default forwardRef(PadComponent)
 
 const properties = {
   "bottom-left": {
     rightOrLeft: "right",
     topOrBottom: "top",
     radiusCorner: "borderBottomLeftRadius"
+  },
+  "bottom-right": {
+    rightOrLeft: "left",
+    topOrBottom: "top",
+    radiusCorner: "borderBottomRightRadius"
+  },
+  "top-left": {
+    rightOrLeft: "right",
+    topOrBottom: "bottom",
+    radiusCorner: "borderTopLeftRadius"
+  },
+  "top-right": {
+    rightOrLeft: "left",
+    topOrBottom: "bottom",
+    radiusCorner: "borderTopRightRadius"
+  },
+  "circle": {
+    rightOrLeft: "left",
+    topOrBottom: "top",
+    radiusCorner: "borderRadius"
   }
 }
