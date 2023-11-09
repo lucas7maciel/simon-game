@@ -45,7 +45,6 @@ const PadComponent = (props, ref) => {
 
       [radiusCorner]: padMeasure,
       backgroundColor: props.color,
-      opacity: 1,//borderOpacity == 0 ? 1 : 0.2,
 
       zIndex: 7 //4
     },
@@ -167,7 +166,6 @@ const PadComponent = (props, ref) => {
   ])
 
   async function playSound() {
-
     const {sound} = await Audio.Sound.createAsync(require("../sounds/c_note.mp3"))
     setSound(sound);
     await sound.playAsync();

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { StyleSheet, Text, View, Dimensions, Animated, Button } from "react-native"
+import { StyleSheet, Text, View, Dimensions, Image, Pressable } from "react-native"
 import { Restart } from "../components/restart"
 import PadComponent from "../components/pads";
 import G from "../sounds/g_note.mp3"
@@ -7,7 +7,6 @@ import A from "../sounds/a_note.mp3"
 import B from "../sounds/b_note.mp3"
 import C from "../sounds/c_note.mp3"
 import D from "../sounds/d_note.mp3"
-
 
 export const Game = () => {
   const {width, height} = Dimensions.get('window')
@@ -133,12 +132,48 @@ export const Game = () => {
 
       </View>
         
-      <View>
+      <View style={{position: "absolute", top: height / 100 * 78, left: (width / 2) - (width / 2.4), height: height / 10, width: width / 1.2,
+                    display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "row"}}>
+        <View style={{flex: 1, alignItems: "center"}}>
+          <Pressable 
+            onPress={() => console.log("Mim dê o cuzinho")}
+            style={{backgroundColor: "white", width: 50, height: 50, borderRadius: 50, borderWidth: 2, alignItems: "center", justifyContent: "center"}}
+          >
+            <Image 
+              style={{height: "70%", width: "70%", objectFit: "cover"}}
+              source={require("../assets/ranking-icon.png")}
+            />
+          </Pressable>
+        </View>
+
+        <View style={{flex: 1, alignItems: "center"}}>
+          <Pressable 
+            onPress={() => console.log("Mim dê o cuzinho")}
+            style={{backgroundColor: "white", width: 50, height: 50, borderRadius: 50, borderWidth: 2, alignItems: "center", justifyContent: "center"}}
+          >
+            <Image 
+              style={{height: "70%", width: "70%", objectFit: "cover"}}
+              source={require("../assets/restart-icon.png")}
+            />
+          </Pressable>
+        </View>
+
+        <View style={{flex: 1, alignItems: "center"}}>
+          <Pressable 
+            onPress={() => console.log("Mim dê o cuzinho")}
+            style={{backgroundColor: "white", width: 50, height: 50, borderRadius: 50, borderWidth: 2, alignItems: "center", justifyContent: "center"}}
+          >
+            <Image 
+              style={{height: "90%", width: "90%", objectFit: "cover"}}
+              source={require("../assets/sound-on-icon.png")}
+            />
+          </Pressable>
+        </View>
       </View>
 
       <View style={{...style.record, top: height / 100 * 93, width}}>
         <Text style={style.record.title}>RECORD</Text>
-        <Text style={style.record.points}>50</Text>
+        <Text style={style.record.points}>XX</Text>
       </View>
     </View>
   )
@@ -184,32 +219,3 @@ const style = StyleSheet.create({
   }
 })
 
-/*
-<PadComponent 
-          position={"top-left"}
-          height={gameHeight} width={width}
-          setSequence={() => playRound(1)}
-          color="red"
-        />
-
-        <PadComponent
-          position={"bottom-right"}
-          height={gameHeight} width={width}
-          setSequence={() => playRound(2)}
-          color="green"
-        />
-        
-        <PadComponent
-          position={"bottom-left"}
-          height={gameHeight} width={width}
-          setSequence={() => playRound(3)}
-          color="yellow"
-        />
-        
-        <PadComponent
-          position={"circle"}
-          height={gameHeight} width={width}
-          setSequence={() => playRound(4)}
-          color={"purple"}
-        />
-*/
