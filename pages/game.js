@@ -16,16 +16,14 @@ export const Game = () => {
 
   const [soundOn, setSoundOn] = useState(true)
 
-  //
   const {width, height} = Dimensions.get('window')
   const gameHeight = height / 100 * 45
-
   const refs = [
     useRef(), useRef(), useRef(), useRef(), useRef()
   ]
 
   function addRound() {
-    const newNumber = Math.floor(Math.random() * 5)
+    const newNumber = Math.floor(Math.random() * 5) //number of pads
 
     setSequence(seq => {
       let newSeq = [...seq, newNumber]
@@ -34,7 +32,6 @@ export const Game = () => {
       console.log(newSeq)
 
       setTimeout(() => playSequence(newSeq), 400)
-
 
       return newSeq
     })
