@@ -1,13 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home } from './pages/home';
+import { StatusBar } from 'expo-status-bar';
 import { Game } from './pages/game';
-import { Teste } from './pages/teste';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+    <>
+    <StatusBar
+      style="light"
+    />
+
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
@@ -15,18 +19,9 @@ export default function App() {
           component={Game} 
           options={{headerShown: false}} 
         />
-        <Stack.Screen 
-          name="Teste" 
-          component={Teste} 
-          options={{headerShown: false}} 
-        />
-        <Stack.Screen 
-          name="Home" 
-          component={Home} 
-          options={{headerShown: false}} 
-        />
       </Stack.Navigator>
     </NavigationContainer>
+    </>
   );
 }
 
