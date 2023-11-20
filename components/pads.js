@@ -7,7 +7,7 @@ const PadComponent = (props, ref) => {
   useImperativeHandle(ref, () => ({
     pressAnimation: () => {
       playSound()
-      pressedAnim?.start()
+      pressedAnim.start()
     }
   }))
 
@@ -208,10 +208,17 @@ const PadComponent = (props, ref) => {
     ])
   ])
 
-  async function playSound() {
-    const { sound } = await Audio.Sound.createAsync(props.sound)
-    setSound(sound);
-    await sound.playAsync();
+  function playSound() {
+    Audio.Sound.createAsync(props.sound)
+    .then(res => {
+      const {sound} = res
+
+      setSound(sound)
+
+      if (props.config.soundOn) {
+        sound.playAsync()
+      }
+    })
   }
 
   useEffect(() => {
@@ -219,7 +226,6 @@ const PadComponent = (props, ref) => {
       () => {sound.unloadAsync()} : 
       undefined;
   }, [sound])
-
 
   function playRound() {
     playSound()

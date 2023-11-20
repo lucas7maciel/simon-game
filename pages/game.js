@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native"
 import { Restart } from "../components/restart"
 import PadComponent from "../components/pads"
 import { OptionIcon } from "../components/option-icon";
+
 import G from "../sounds/g_note.mp3"
 import A from "../sounds/a_note.mp3"
 import B from "../sounds/b_note.mp3"
@@ -99,6 +100,8 @@ export const Game = () => {
             position={pad.position}
             color={pad.color}
             sound={pad.sound}
+
+            config={{soundOn}}
           />
         )}
 
@@ -127,7 +130,7 @@ export const Game = () => {
 
         <OptionIcon 
           image={soundOn ? require("../assets/sound-on-icon.png") : require("../assets/sound-off-icon.png")}
-          //action={setSoundOn(val => !val)}
+          action={() => setSoundOn(val => !val)}
           size={width / 7.2}
         />
       </View>
