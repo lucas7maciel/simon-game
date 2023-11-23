@@ -34,6 +34,8 @@ export const SignUp = (props) => {
 
   return (
     <View style={style.container}>
+      <Text style={style.title}>SIGN UP</Text>
+      
       <SafeAreaView>
         <TextInput 
           style={style.input}
@@ -60,6 +62,9 @@ export const SignUp = (props) => {
       <Pressable style={style.button}>
         <Text style={style.button.text}>Sign Up</Text>
       </Pressable>
+      <Pressable style={style.button}>
+        <Text style={style.button.text}>Back</Text>
+      </Pressable>
 
     </View>
   )
@@ -73,12 +78,19 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: "green"
+    backgroundColor: "#11001c"
+  },
+
+  title: {
+    fontSize: 70,
+    fontWeight: 'bold',
+    color: 'white'
   },
 
   image: {
     maxWidth: wp('45%'),
-    maxHeight: wp('45%')
+    maxHeight: wp('45%'),
+    objectFit: "cover"
   },
 
   input: {
@@ -87,6 +99,7 @@ const style = StyleSheet.create({
 
     marginTop: hp('2%'),
 
+    borderRadius: 4,
     backgroundColor: 'white'
   },
 
@@ -94,12 +107,14 @@ const style = StyleSheet.create({
     backgroundColor: "blue",
     borderRadius: 5,
 
+    height: hp('7%'),
+
     text: {
       color: 'white',
       padding: 15,
     }
   },
   message: {
-
+    color: 'white'
   }
 })

@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import { StyleSheet, Text, View, Dimensions } from "react-native"
 import { Restart } from "../components/restart"
 import PadComponent from "../components/pads"
-import { OptionIcon } from "../components/option-icon";
-
+import { OptionIcon } from "../components/option-icon"
 import G from "../sounds/g_note.mp3"
 import A from "../sounds/a_note.mp3"
 import B from "../sounds/b_note.mp3"

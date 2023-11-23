@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { TextInput, View, Image, Pressable, Text, StyleSheet, SafeAreaView } from "react-native"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen"
 
@@ -16,9 +16,7 @@ export const Login = (props) => {
       .then(res => {
         setMessage(res)
       })
-      .catch(error => {
-        setMessage("Error")
-      })
+      .catch(setMessage)
   }
 
   return (
@@ -49,6 +47,8 @@ export const Login = (props) => {
       >
         <Text style={style.button.text}>Enter</Text>
       </Pressable>
+
+      <Text style={style.signUp}>Don't have an account? Sign Up</Text>
     </View>
   )
 }
@@ -61,12 +61,13 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
 
-    backgroundColor: "yellow"
+    backgroundColor: "#11001c"
   },
 
   image: {
     maxWidth: wp('45%'),
-    maxHeight: wp('45%')
+    maxHeight: wp('45%'),
+    objectFit: "cover"
   },
 
   input: {
@@ -75,6 +76,7 @@ const style = StyleSheet.create({
 
     marginTop: hp('2%'),
 
+    borderRadius: 4,
     backgroundColor: 'white'
   },
 
@@ -82,12 +84,17 @@ const style = StyleSheet.create({
     backgroundColor: "blue",
     borderRadius: 5,
 
+    height: hp('7%'),
+
     text: {
       color: 'white',
       padding: 15,
     }
   },
   message: {
-
+    color: 'white'
+  },
+  signUp: {
+    color: 'white'
   }
 })
