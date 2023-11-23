@@ -26,7 +26,7 @@ export const Login = (props) => {
         source={require('../assets/icon.png')}
       />
 
-      <SafeAreaView>
+      <SafeAreaView style={{position: 'absolute', top: hp('50%'), width: '80%', height: hp('20%'), display: 'flex', justifyContent: 'center'}}>
         <TextInput 
           style={style.input}
           value={nick}
@@ -55,8 +55,8 @@ export const Login = (props) => {
 
 const style = StyleSheet.create({
   container: {
-    width: wp('100%'),
-    height: hp('100%'),
+    width: '100%',
+    height: '100%',
 
     justifyContent: "center",
     alignItems: "center",
@@ -65,22 +65,32 @@ const style = StyleSheet.create({
   },
 
   image: {
-    maxWidth: wp('45%'),
-    maxHeight: wp('45%'),
+    position: "absolute",
+    top: hp('15%'),
+
+    maxWidth: hp('30%'),
+    maxHeight: hp('30%'),
     objectFit: "cover"
   },
 
   input: {
-    width: wp('80%'),
-    height: hp('7%'),
+    flex: 1,
 
-    marginTop: hp('2%'),
+    height: '40%',
+    marginVertical: '3%',
+
+    padding: 4,
 
     borderRadius: 4,
     backgroundColor: 'white'
   },
 
   button: {
+    position: 'absolute',
+    top: hp('77%'),
+
+    justifyContent: 'center',
+
     backgroundColor: "blue",
     borderRadius: 5,
 
@@ -88,13 +98,24 @@ const style = StyleSheet.create({
 
     text: {
       color: 'white',
-      padding: 15,
+
+      paddingVertical: 10,
+      paddingHorizontal: 20
     }
   },
   message: {
+    position: 'absolute',
+    top: hp('72%'),
+    
+    fontSize: hp('2%'),
+    fontWeight: 'bold',
     color: 'white'
   },
   signUp: {
+    position: 'absolute',
+    top: hp('100%'),
+
+    fontSize: hp('2%'),
     color: 'white'
   }
 })
