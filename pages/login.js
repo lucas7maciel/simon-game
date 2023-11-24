@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TextInput, View, Image, Pressable, Text, StyleSheet, SafeAreaView } from "react-native"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen"
 
-export const Login = (props) => {
+export const Login = ({navigation}) => {
   const [nick, setNick] = useState("lucas")
   const [passw, setPassw] = useState("batata")
 
@@ -26,14 +26,14 @@ export const Login = (props) => {
         source={require('../assets/icon.png')}
       />
 
-      <SafeAreaView style={{position: 'absolute', top: hp('50%'), width: '80%', height: hp('20%'), display: 'flex', justifyContent: 'center'}}>
+      <SafeAreaView style={style.inputArea}>
         <TextInput 
-          style={style.input}
+          style={style.inputArea.input}
           value={nick}
           onChangeText={setNick}
         />
         <TextInput 
-          style={style.input}
+          style={style.inputArea.input}
           value={passw}
           onChangeText={setPassw}
         />  
@@ -48,7 +48,14 @@ export const Login = (props) => {
         <Text style={style.button.text}>Enter</Text>
       </Pressable>
 
-      <Text style={style.signUp}>Don't have an account? Sign Up</Text>
+      <Pressable 
+        style={style.signUp}
+        onPress={() => navigation.navigate('SignUp')}
+      >
+        <Text style={style.signUp.text}>Don't have an account? </Text>
+        <Text style={[style.signUp.text, {color: 'yellow', fontWeight: 'bold'}]}>Sign Up</Text>  
+      </Pressable>
+      
     </View>
   )
 }
@@ -66,46 +73,59 @@ const style = StyleSheet.create({
 
   image: {
     position: "absolute",
-    top: hp('15%'),
+    top: hp('18%'),
 
     maxWidth: hp('30%'),
     maxHeight: hp('30%'),
     objectFit: "cover"
   },
 
-  input: {
-    flex: 1,
-
-    height: '40%',
-    marginVertical: '3%',
-
-    padding: 4,
-
-    borderRadius: 4,
-    backgroundColor: 'white'
+  inputArea: {
+    position: 'absolute', 
+    top: hp('54%'), 
+    
+    width: '80%', 
+    height: hp('18%'), 
+    
+    display: 'flex', 
+    justifyContent: 'center',
+  
+    input: {
+      flex: 1,
+  
+      //height: '40%',
+      marginVertical: '3%',
+  
+      padding: 4,
+  
+      borderRadius: 4,
+      backgroundColor: 'white'
+    }
   },
 
   button: {
     position: 'absolute',
-    top: hp('77%'),
+    top: hp('80%'),
 
     justifyContent: 'center',
 
     backgroundColor: "blue",
-    borderRadius: 5,
+    borderRadius: 16,
 
     height: hp('7%'),
 
     text: {
       color: 'white',
+      fontSize: 18,
+      fontWeight: 'bold',
 
       paddingVertical: 10,
-      paddingHorizontal: 20
+      paddingHorizontal: wp('20%')
     }
   },
   message: {
     position: 'absolute',
-    top: hp('72%'),
+    top: hp('74%'),
     
     fontSize: hp('2%'),
     fontWeight: 'bold',
@@ -115,7 +135,12 @@ const style = StyleSheet.create({
     position: 'absolute',
     top: hp('100%'),
 
-    fontSize: hp('2%'),
-    color: 'white'
+    display: 'flex',
+    flexDirection: 'row',
+
+    text: {
+      fontSize: hp('2%'),
+      color: 'white'
+    }
   }
 })

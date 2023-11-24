@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { StyleSheet, View, Text, Image, Pressable } from "react-native"
+import { StyleSheet, View, Text, Image, Pressable, ScrollView } from "react-native"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
 import { Record } from "../components/record"
 
 export const Profile = (props) => {
   const [nick, setNick] = useState("")
   const [createdAt, setCreatedAt] = useState("")
-  const [records, setRecords] = useState([{nick: "lucas", points: 3, city: "Maceió"}, {nick: "matheus", points: 5, city: "Recife"}])
+  const [records, setRecords] = useState([{nick: "lucas", points: 3, city: "Maceió"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "lucas", points: 3, city: "Maceió"}, {nick: "lucas", points: 3, city: "Maceió"}, {nick: "lucas", points: 3, city: "Maceió"}])
 
   function loadUser() {
     console.log("Loading data")
@@ -46,15 +46,18 @@ export const Profile = (props) => {
       <Text>Records</Text>
 
       <View style={style.records}>
-        {records.map((record, index) => (
-          <Record
-            key={index}
-            nick={record.nick}
-            points={record.points}
-            city={record.city}
-          />
-        ))}
+        <ScrollView style={style.records.scroll}>
+          {records.map((record, index) => (
+            <Record
+              key={index}
+              nick={record.nick}
+              points={record.points}
+              city={record.city}
+            />
+          ))}
+        </ScrollView>  
       </View>
+      
     </View>
   )
 }
@@ -62,7 +65,10 @@ export const Profile = (props) => {
 const style = StyleSheet.create({
   container: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+
+    backgroundColor: "white",
+    alignItems: "center"
   },
   navbar: {
     display: 'flex',
@@ -117,6 +123,15 @@ const style = StyleSheet.create({
     borderRadius: 1
   },
   records: {
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth: 5,
+    borderColor: 'purple',
+    width: "80%",
+
+    height: hp("35%"),
+
+    scroll: {
+      
+    }
   }
 })
