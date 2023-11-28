@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { StyleSheet, View, Text, Image, Pressable, ScrollView } from "react-native"
+import { StyleSheet, View, Text, Image, Pressable, ScrollView, StatusBar } from "react-native"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
 import { Record } from "../components/record"
 
-export const Profile = (props) => {
+export const Profile = ({navigation}) => {
   const [nick, setNick] = useState("")
   const [createdAt, setCreatedAt] = useState("")
   const [records, setRecords] = useState([{nick: "lucas", points: 3, city: "Maceió"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "lucas", points: 3, city: "Maceió"}, {nick: "lucas", points: 3, city: "Maceió"}, {nick: "lucas", points: 3, city: "Maceió"}])
@@ -25,8 +25,14 @@ export const Profile = (props) => {
   return (
     <View style={style.container}>
       <View style={style.navbar}>
-        <Text>Back</Text>
-        <Text>Log Out</Text>
+        <Pressable style={{flex: 1, padding: 15}}
+        onPress={() => navigation.navigate('Records')}>
+          <Text style={style.navbar.text}>Back</Text>
+        </Pressable>
+        <Pressable style={{flex: 1, padding: 15, alignItems: "flex-end", backgroundColor: "green"}}
+        onPress={() => console.log("Penis")}>
+          <Text style={style.navbar.text}>Log Out</Text>
+        </Pressable>
       </View>
 
       <View style={style.profile}>
@@ -71,13 +77,16 @@ const style = StyleSheet.create({
     alignItems: "center"
   },
   navbar: {
-    display: 'flex',
-    flexDirection: 'row',
+    paddingTop: StatusBar.currentHeight,
+    backgroundColor: "red",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
 
-    width: '100%',
-    height: hp('10%'),
-
-    backgroundColor: 'red'
+    text: {
+      color: 'white',
+      fontWeight: "bold"
+    }
   },
   profile: {
     alignItems: 'center',
@@ -123,10 +132,7 @@ const style = StyleSheet.create({
     borderRadius: 1
   },
   records: {
-    alignItems: 'center',
-    borderWidth: 5,
-    borderColor: 'purple',
-    width: "80%",
+    width: "85%",
 
     height: hp("35%"),
 

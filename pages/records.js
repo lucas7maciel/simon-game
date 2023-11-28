@@ -7,34 +7,28 @@ export const Records = ({navigation}) => {
   const [records, setRecords] = useState([{nick: "lucas", points: 3, city: "Maceió"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}])
 
   return (
-    <SafeAreaView style={style.container}>
-      <View style={[style.navbar, {paddingTop: StatusBar.currentHeight}]}>
-
+    <View style={style.container}>
+      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), backgroundColor: "white", display: "flex", flexDirection: "row"}}>
         <Pressable 
-          style={style.navbar.child}
-          onClick={() => console.log("Penis")}
+          style={{flex: 1, alignItems: "center", justifyContent: "center"}}
+          onPress={() => navigation.navigate('Profile')}
         >
           <Image 
-            style={style.navbar.icon}
-            source={require("../assets/profile-icon.png")}
+            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
+            source={require('../assets/profile-icon.png')}
           />
         </Pressable>
-        
-        <View style={[style.navbar.child, {flex: 2.5}]}>
-          <TextInput
-            style={[style.navbar.searchBar, {alignSelf: 'stretch'}]}
-            placeholder="Pesquisar record"
-          />  
+        <View style={{flex: 2.5, alignItems: "center", justifyContent: "center"}}>
+          <TextInput 
+            style={{backgroundColor: "white", width: "85%", height: "90%"}}
+            placeholder="Search For Record"
+          />
         </View>
-        
-        <Pressable 
-          style={[style.navbar.child]}
-          onClick={() => console.log("a")}
-        >
+        <Pressable style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
           <Image 
-            style={style.navbar.icon}
-            source={require("../assets/filter-icon.png")}
-          />  
+            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
+            source={require('../assets/filter-icon.png')}
+          />
         </Pressable>
       </View>
 
@@ -68,7 +62,7 @@ export const Records = ({navigation}) => {
           />
         ))}  
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -97,11 +91,8 @@ const style = StyleSheet.create({
     },
 
     icon: {
-      width: 50,
-      height: 50, //mudar isso tambem
-      borderWidth: 2.5,
-      borderColor: 'black',
-      borderRadius: hp('50%'), //mudar isso
+      width: "100%",
+      height: "100%",
       objectFit: 'cover'
     },
 
