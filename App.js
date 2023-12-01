@@ -29,6 +29,11 @@ export default function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen 
+          name="Game" 
+          component={Game} 
+          options={{headerShown: false}} 
+        />
+        <Stack.Screen 
           name="SignUp"
           component={SignUp}
           options={{headerShown: false}}
@@ -38,11 +43,7 @@ export default function App() {
           component={Login}
           options={{headerShown: false}}
         />
-        <Stack.Screen 
-          name="Game" 
-          component={Game} 
-          options={{headerShown: false}} 
-        />
+    
       </Stack.Navigator>
     </NavigationContainer>
     </>

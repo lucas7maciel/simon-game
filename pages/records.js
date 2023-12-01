@@ -1,33 +1,58 @@
 import { useState } from "react"
 import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, ScrollView, Pressable, StatusBar } from "react-native"
-import { heightPercentageToDP as hp } from "react-native-responsive-screen"
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
 import { Record } from "../components/record"
 
 export const Records = ({navigation}) => {
-  const [records, setRecords] = useState([{nick: "lucas", points: 3, city: "Maceió"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}, {nick: "matheus", points: 5, city: "Recife"}])
+  const [records, setRecords] = useState([{nick: "lucas", points: 35, city: "Maceió"}, {nick: "Pedro", points: 5, city: "Recife"}, {nick: "Iracema", points: 6, city: "Pernam"}])
+  const [visibleRecords, setVisibleRecords] = useState(records)
+
+  function filterRecord(text) {
+    const upperText = text.toUpperCase()
+
+    const filtered = records.filter(record => {
+      const values = Object.values(record)
+
+      const nick = values[0].toUpperCase()
+      const city = values[2].toUpperCase()
+      const points = String(values[1])
+
+      return (
+        nick.includes(upperText) ||
+        city.includes(upperText) ||
+        points.includes(upperText)
+      )
+    })
+
+    setVisibleRecords(filtered)
+  }
 
   return (
     <View style={style.container}>
-      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), backgroundColor: "white", display: "flex", flexDirection: "row"}}>
+      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), backgroundColor: "white", display: "flex", flexDirection: "row", backgroundColor: "#934353"}}>
+        <Pressable 
+          style={{flex: 1, alignItems: "center", justifyContent: "center"}}
+          onPress={() => navigation.navigate('Game')}
+        >
+          <Image 
+            style={{width: undefined, height: "65%", aspectRatio: 1}}
+            source={require('../assets/back-icon.png')}
+          />
+        </Pressable>
+        <View style={{flex: 3.5, alignItems: "center", justifyContent: "center"}}>
+          <TextInput 
+            style={{backgroundColor: "white", width: "85%", paddingVertical: hp("1%"), paddingHorizontal: wp("2%"), borderRadius: hp("10%")}}
+            onChangeText={filterRecord}
+            placeholder="Search For Record"
+          />
+        </View>
         <Pressable 
           style={{flex: 1, alignItems: "center", justifyContent: "center"}}
           onPress={() => navigation.navigate('Profile')}
         >
           <Image 
-            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
+            style={{width: undefined, height: "65%", aspectRatio: 1, borderWidth: 2, borderColor: "white", borderRadius: hp('15%'), backgroundColor: "white"}}
             source={require('../assets/profile-icon.png')}
-          />
-        </Pressable>
-        <View style={{flex: 2.5, alignItems: "center", justifyContent: "center"}}>
-          <TextInput 
-            style={{backgroundColor: "white", width: "85%", height: "90%"}}
-            placeholder="Search For Record"
-          />
-        </View>
-        <Pressable style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-          <Image 
-            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
-            source={require('../assets/filter-icon.png')}
           />
         </Pressable>
       </View>
@@ -53,7 +78,7 @@ export const Records = ({navigation}) => {
         style={style.records}
         showsVerticalScrollIndicator={false}
       >
-        {records.map((record, index) => (
+        {visibleRecords.map((record, index) => (
           <Record
             key={index}
             nick={record.nick}
@@ -79,7 +104,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: 'green',
+    backgroundColor: "#CF7257",
 
     height: hp('15%'),
     width: '100%',
@@ -108,3 +133,10 @@ const style = StyleSheet.create({
     marginTop: 10
   }
 })
+
+/*
+<Image 
+            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
+            source={require('../assets/filter-icon.png')}
+          />
+*/

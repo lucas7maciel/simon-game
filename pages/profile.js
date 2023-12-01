@@ -19,7 +19,7 @@ export const Profile = ({navigation}) => {
   }
 
   useEffect(() => {
-    loadUser()
+    //loadUser()
   }, [])
 
   return (
@@ -29,7 +29,7 @@ export const Profile = ({navigation}) => {
         onPress={() => navigation.navigate('Records')}>
           <Text style={style.navbar.text}>Back</Text>
         </Pressable>
-        <Pressable style={{flex: 1, padding: 15, alignItems: "flex-end", backgroundColor: "green"}}
+        <Pressable style={{flex: 1, padding: 15, alignItems: "flex-end"}}
         onPress={() => console.log("Penis")}>
           <Text style={style.navbar.text}>Log Out</Text>
         </Pressable>
@@ -43,13 +43,17 @@ export const Profile = ({navigation}) => {
 
         <Text style={style.profile.nick}>{nick || "Sem nick"}</Text>
         <Text style={style.profile.since}>{createdAt || "Since ???"}</Text>
-
-        <Pressable style={style.profile.deleteButton}>
-          <Text style={style.profile.deleteButton.text}>Delete Account</Text>
-        </Pressable>
       </View>
 
-      <Text>Records</Text>
+      <View style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", gap: wp('4%')}}>
+        <View 
+          style={{borderWidth: 1, borderColor: 'white', height: 0, flex: 1, marginLeft: wp("4%")}}
+        />
+        <Text style={{flex: 1, fontWeight: "bold", color: "white", fontSize: 20, textAlign: "center"}}>RECORDS</Text>
+        <View 
+          style={{borderWidth: 1, borderColor: 'white', height: 0, flex: 1, marginRight: wp("4%")}}
+        />
+      </View>
 
       <View style={style.records}>
         <ScrollView style={style.records.scroll}>
@@ -74,14 +78,17 @@ const style = StyleSheet.create({
     height: '100%',
 
     backgroundColor: "white",
-    alignItems: "center"
+    alignItems: "center",
+
+    backgroundColor: "#11001c"
   },
   navbar: {
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "red",
+    backgroundColor: "#CF7257",
     width: "100%",
     display: "flex",
     flexDirection: "row",
+    maxHeight: hp("13%"),
 
     text: {
       color: 'white',
@@ -90,39 +97,31 @@ const style = StyleSheet.create({
   },
   profile: {
     alignItems: 'center',
+    justifyContent: "center",
+    height: hp("43%"),
 
     nick: {
+      marginTop: hp("1%"),
       fontSize: 40,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      color: 'white'
     },
 
     since: {
-      fontSize: 16
+      fontSize: 16,
+      color: 'white'
     },
 
     image: {
       borderWidth: 3,
-      borderColor: 'black',
+      borderColor: 'white',
       borderRadius: hp('25%'),
 
       maxHeight: hp('25%'),
       maxWidth: hp('25%'),
-      objectFit: 'cover'
-    },
+      objectFit: 'cover',
 
-    deleteButton: {
-      backgroundColor: 'red',
-
-      padding: 10,
-
-      borderRadius: 4,
-      borderWidth: 1.5,
-      borderColor: '#8b0000',
-      
-      text: {
-        color: 'white',
-        fontWeight: 'bold'
-      }
+      backgroundColor: "white"
     }
   },
   hr: {
@@ -134,7 +133,8 @@ const style = StyleSheet.create({
   records: {
     width: "85%",
 
-    height: hp("35%"),
+    marginTop: hp("2%"),
+    height: hp("40%"),
 
     scroll: {
       

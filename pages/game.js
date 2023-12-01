@@ -9,7 +9,7 @@ import B from "../sounds/b_note.mp3"
 import C from "../sounds/c_note.mp3"
 import D from "../sounds/d_note.mp3"
 
-export const Game = () => {
+export const Game = ({navigation}) => {
   const [sequence, setSequence] = useState([])
   const [yourSequence, setYourSequence] = useState([])
   const [restart, setRestart] = useState(false)
@@ -118,6 +118,7 @@ export const Game = () => {
   
         <OptionIcon 
           image={require("../assets/ranking-icon.png")}
+          action={() => navigation.navigate('Records')}
           size={width / 7.2}
         />
 
