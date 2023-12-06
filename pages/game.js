@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from "react"
 import { StyleSheet, Text, View, Dimensions } from "react-native"
+
 import { Restart } from "../components/restart"
 import PadComponent from "../components/pads"
 import { OptionIcon } from "../components/option-icon"
-import G from "../sounds/g_note.mp3"
-import A from "../sounds/a_note.mp3"
-import B from "../sounds/b_note.mp3"
-import C from "../sounds/c_note.mp3"
-import D from "../sounds/d_note.mp3"
+
+import { page } from "../styles/general"
+import { game, options, points, record } from "../styles/game"
 
 export const Game = ({navigation}) => {
   const [sequence, setSequence] = useState([])
@@ -75,19 +74,15 @@ export const Game = ({navigation}) => {
 
   return (
     <>
-    <View style={style.container}>
+    <View style={page}>
 
       <View 
-        style={{
-          ...style.points, 
-          top: height / 100 * 6, 
-          height: height / 5
-        }}
+        style={points}
       >
-        <Text style={style.points.text}>{sequence.length}</Text>
+        <Text style={points.text}>{sequence.length}</Text>
       </View>
 
-      <View style={{...style.gameContainer, top: height / 100 * 8, height: height / 100 * 45}}>
+      <View style={game}>
 
         {pads.map((pad, index) => 
           <PadComponent 
@@ -106,16 +101,7 @@ export const Game = ({navigation}) => {
 
       </View>
         
-      <View 
-        style={{
-          ...style.options,
-          top: height / 100 * 78, 
-          left: (width / 2) - (width / 2.4), 
-          height: height / 10, 
-          width: width / 1.2
-        }}
-      >
-  
+      <View style={options}>
         <OptionIcon 
           image={require("../assets/ranking-icon.png")}
           action={() => navigation.navigate('Records')}
@@ -135,9 +121,9 @@ export const Game = ({navigation}) => {
         />
       </View>
 
-      <View style={{...style.record, top: height / 100 * 93, width}}>
-        <Text style={style.record.title}>RECORD</Text>
-        <Text style={style.record.points}>XX</Text>
+      <View style={record}>
+        <Text style={record.title}>RECORD</Text>
+        <Text style={record.points}>XX</Text>
       </View>
     </View>
 
@@ -153,81 +139,30 @@ export const Game = ({navigation}) => {
   )
 }
 
-const style = StyleSheet.create({
-  container : {
-    height: "100%",
-    width: "100%",
-
-    backgroundColor: "#11001c"
-  },
-  points: {
-    alignItems: "center",
-    justifyContent: "center",
-
-    text: {
-      fontSize: 70,
-      color: "white",
-      fontWeight: "bold"
-    }
-  },
-
-  game: {
-    position: "relative"
-  },
-
-  record: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
-
-    title : {
-      fontSize: 15, 
-      color: "white",
-      fontWeight: "bold"
-    },
-
-    points : {
-      fontSize: 25, 
-      color: "white",
-      fontWeight: "bold"
-    }
-  },
-
-  options: {
-    position: "absolute", 
-                    
-    display: "flex", 
-    alignItems: "center", 
-    justifyContent: "center", 
-    flexDirection: "row"
-  }
-})
-
-
 const pads = [
   {
     position: "top-right",
-    sound: G,
+    sound: require("../sounds/g_note.mp3"),
     color: "blue"
   },
   {
     position: "top-left",
-    sound: A,
+    sound: require("../sounds/a_note.mp3"),
     color: "red"
   },
   {
     position: "bottom-right",
-    sound: B,
+    sound: require("../sounds/b_note.mp3"),
     color: "green"
   },
   {
     position: "bottom-left",
-    sound: C,
+    sound: require("../sounds/c_note.mp3"),
     color: "yellow"
   },
   {
     position: "circle",
-    sound: D,
+    sound: require("../sounds/d_note.mp3"),
     color: "purple"
   }
 ]

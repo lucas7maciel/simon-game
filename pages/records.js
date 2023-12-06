@@ -29,13 +29,13 @@ export const Records = ({navigation}) => {
 
   return (
     <View style={style.container}>
-      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), backgroundColor: "white", display: "flex", flexDirection: "row", backgroundColor: "#934353"}}>
+      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), display: "flex", flexDirection: "row", backgroundColor: "#450BE0"}}>
         <Pressable 
           style={{flex: 1, alignItems: "center", justifyContent: "center"}}
           onPress={() => navigation.navigate('Game')}
         >
           <Image 
-            style={{width: undefined, height: "65%", aspectRatio: 1}}
+            style={{height: "80%", aspectRatio: 1, objectFit: "contain"}}
             source={require('../assets/back-icon.png')}
           />
         </Pressable>
@@ -51,7 +51,7 @@ export const Records = ({navigation}) => {
           onPress={() => navigation.navigate('Profile')}
         >
           <Image 
-            style={{width: undefined, height: "65%", aspectRatio: 1, borderWidth: 2, borderColor: "white", borderRadius: hp('15%'), backgroundColor: "white"}}
+            style={{height: "65%", aspectRatio: 1, objectFit: "contain", filter: "invert(1)", borderWidth: 2, borderColor: "white", borderRadius: hp('15%'), backgroundColor: "white"}}
             source={require('../assets/profile-icon.png')}
           />
         </Pressable>
@@ -60,17 +60,17 @@ export const Records = ({navigation}) => {
       <View
         style={{display: 'flex', flexDirection: "row", alignItems: "center", width: "90%"}}
       >
-        <View style={{flex: 1, backgroundColor: "yellow", alignItems:"center", borderBottomLeftRadius: 100, borderWidth: 1.5, borderTopWidth: 0}}>
-          <Text style={{fontWeight: 'bold'}}>Points</Text>
+        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomLeftRadius: 100, borderBottomRightRadius: 10, borderWidth: 1.5, borderTopWidth: 0}}>
+          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Points</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "red", alignItems:"center", borderBottomWidth: 1.5, borderRightWidth: 1.5}}>
-          <Text style={{fontWeight: 'bold'}}>Nick</Text>
+        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderBottomWidth: 1.5, borderRightWidth: 1.5}}>
+          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Nick</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "gray", alignItems:"center", borderBottomWidth: 1.5}}>
-          <Text style={{fontWeight: 'bold'}}>Date</Text>
+        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderBottomWidth: 1.5}}>
+          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Date</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "green", alignItems:"center", borderBottomRightRadius: 100, borderWidth: 1.5, borderTopWidth: 0}}>
-          <Text style={{fontWeight: 'bold'}}>City</Text>
+        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 100, borderBottomLeftRadius: 10, borderWidth: 1.5, borderTopWidth: 0}}>
+          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>City</Text>
         </View>
       </View>
 
@@ -104,7 +104,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "#CF7257",
+    backgroundColor: "#450BE0",
 
     height: hp('15%'),
     width: '100%',
