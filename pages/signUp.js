@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen"
+import { page } from "../styles/general"
+import { button, input, inputArea, messageStyle, signIn, title } from "../styles/signUp"
 
 export const SignUp = ({navigation}) => {
   const [nick, setNick] = useState("lucas8")
@@ -33,124 +35,49 @@ export const SignUp = ({navigation}) => {
   })
 
   return (
-    <View style={style.container}>
-      <Text style={style.title}>SIGN UP</Text>
+    <View style={[page, page.centered]}>
+      <Text style={title}>SIGN UP</Text>
       
-      <SafeAreaView style={{position: 'absolute', top: hp('34%'), width: '80%', height: hp('35%'), display: 'flex', justifyContent: 'center'}}>
+      <SafeAreaView style={inputArea}>
         <TextInput 
-          style={style.input}
+          style={input}
           value={nick}
           onChangeText={setNick}
           placeholder="Nick"
         />
         <TextInput 
-          style={style.input}
+          style={input}
           value={passw}
           onChangeText={setPassw}
           placeholder="Password"
         />
         <TextInput 
-          style={style.input}
+          style={input}
           value={confPassw}
           onChangeText={setConfPassw}
           placeholder="Confirm Password"
         />
       </SafeAreaView>
 
-      <Text style={style.message}>{message}</Text>
+      <Text style={messageStyle}>{message}</Text>
 
-      <Pressable style={[style.button, {top: hp('77%')}]}>
-        <Text style={style.button.text}>Sign Up</Text>
+      <Pressable style={button}>
+        <Text style={button.text}>Sign Up</Text>
       </Pressable>
       
       <Pressable 
-        style={style.signIn}
+        style={signIn}
         onPress={() => navigation.navigate("Login")}
       >
-        <Text style={style.signIn.text}>Already have an account? </Text>
-        <Text style={[style.signIn.text, {color: 'yellow', fontWeight: 'bold'}]}>Sign In</Text>  
+        <Text 
+          style={signIn.text}
+          >Already have an account?
+        </Text>
+        <Text 
+          style={[signIn.text, signIn.yellow]}
+          > Sign In
+        </Text>  
       </Pressable>
-
     </View>
   )
 }
-
-const style = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-
-    justifyContent: "center",
-    alignItems: "center",
-
-    backgroundColor: "#11001c"
-  },
-
-  title: {
-    position: 'absolute',
-    top: hp('16%'),
-
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: hp('10%')
-  },
-
-  image: {
-    position: "absolute",
-    top: hp('18%'),
-
-    maxWidth: hp('30%'),
-    maxHeight: hp('30%'),
-    objectFit: "cover"
-  },
-
-  input: {
-    flex: 1,
-
-    marginVertical: '5.5%',
-
-    padding: 4,
-
-    borderRadius: 4,
-    backgroundColor: 'white'
-  },
-
-  button: {
-    position: 'absolute',
-
-    justifyContent: 'center',
-
-    backgroundColor: "blue",
-    borderRadius: 16,
-
-    height: hp('7%'),
-
-    text: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-
-      paddingHorizontal: wp('20%')
-    }
-  },
-  message: {
-    position: 'absolute',
-    top: hp('70%'),
-    
-    fontSize: hp('2%'),
-    fontWeight: 'bold',
-    color: 'white'
-  },
-  signIn: {
-    position: 'absolute',
-    top: hp('100%'),
-
-    display: 'flex',
-    flexDirection: 'row',
-
-    text: {
-      fontSize: hp('2%'),
-      color: 'white'
-    }
-  }
-})

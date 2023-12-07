@@ -2,6 +2,8 @@ import { useState } from "react"
 import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, ScrollView, Pressable, StatusBar } from "react-native"
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
 import { Record } from "../components/record"
+import { page } from "../styles/general"
+import { navbar, topics, recordsStyle, topic } from "../styles/records"
 
 export const Records = ({navigation}) => {
   const [records, setRecords] = useState([{nick: "lucas", points: 35, city: "Maceió"}, {nick: "Pedro", points: 5, city: "Recife"}, {nick: "Iracema", points: 6, city: "Pernam"}])
@@ -28,54 +30,54 @@ export const Records = ({navigation}) => {
   }
 
   return (
-    <View style={style.container}>
-      <View style={{paddingTop: StatusBar.currentHeight, width: "100%", height: hp('13%'), display: "flex", flexDirection: "row", backgroundColor: "#450BE0"}}>
+    <View style={[page, page.centerHor]}>
+      <View style={navbar}>
         <Pressable 
-          style={{flex: 1, alignItems: "center", justifyContent: "center"}}
+          style={navbar.child}
           onPress={() => navigation.navigate('Game')}
         >
           <Image 
-            style={{height: "80%", aspectRatio: 1, objectFit: "contain"}}
+            style={navbar.back}
             source={require('../assets/back-icon.png')}
           />
         </Pressable>
-        <View style={{flex: 3.5, alignItems: "center", justifyContent: "center"}}>
+        <View style={navbar.mainChild}>
           <TextInput 
-            style={{backgroundColor: "white", width: "85%", paddingVertical: hp("1%"), paddingHorizontal: wp("2%"), borderRadius: hp("10%")}}
+            style={navbar.searchBar}
             onChangeText={filterRecord}
             placeholder="Search For Record"
           />
         </View>
+
         <Pressable 
-          style={{flex: 1, alignItems: "center", justifyContent: "center"}}
+          style={navbar.child}
           onPress={() => navigation.navigate('Profile')}
         >
           <Image 
-            style={{height: "65%", aspectRatio: 1, objectFit: "contain", filter: "invert(1)", borderWidth: 2, borderColor: "white", borderRadius: hp('15%'), backgroundColor: "white"}}
+            style={navbar.profile}
             source={require('../assets/profile-icon.png')}
           />
         </Pressable>
       </View>
 
-      <View
-        style={{display: 'flex', flexDirection: "row", alignItems: "center", width: "90%"}}
-      >
-        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomLeftRadius: 100, borderBottomRightRadius: 10, borderWidth: 1.5, borderTopWidth: 0}}>
-          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Points</Text>
+      <View style={topics}>
+        <View style={[topic, topic.left]}>
+          <Text 
+            style={topic.text}>Points</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderBottomWidth: 1.5, borderRightWidth: 1.5}}>
-          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Nick</Text>
+        <View style={[topic, topic.mid]}>
+          <Text style={topic.text}>Nick</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 5, borderBottomLeftRadius: 5, borderBottomWidth: 1.5}}>
-          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>Date</Text>
+        <View style={[topic, topic.mid]}>
+          <Text style={topic.text}>Date</Text>
         </View>
-        <View style={{flex: 1, backgroundColor: "#450BE0", alignItems:"center", borderBottomRightRadius: 100, borderBottomLeftRadius: 10, borderWidth: 1.5, borderTopWidth: 0}}>
-          <Text style={{fontWeight: 'bold', color: "white", paddingVertical: 5}}>City</Text>
+        <View style={[topic, topic.right]}>
+          <Text style={topic.text}>City</Text>
         </View>
       </View>
 
       <ScrollView 
-        style={style.records}
+        style={recordsStyle}
         showsVerticalScrollIndicator={false}
       >
         {visibleRecords.map((record, index) => (
@@ -133,10 +135,3 @@ const style = StyleSheet.create({
     marginTop: 10
   }
 })
-
-/*
-<Image 
-            style={{width: undefined, height: "90%", aspectRatio: 1, borderWidth: 4, borderColor: "black", borderRadius: hp('15%')}}
-            source={require('../assets/filter-icon.png')}
-          />
-*/
