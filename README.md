@@ -2,11 +2,6 @@ _In production..._
 
 # Mobile version of the famous Simon Game!
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
-<div style="display: flex; max-height: 100;">
-  ![image](https://github.com/lucas7maciel/simon-game/assets/80663597/91074d9f-8320-4712-8dab-effc731e8f4d)
-  ![image](https://github.com/lucas7maciel/simon-game/assets/80663597/32db4935-5d72-499b-9cc6-91c6c349ee89)
-</div>
-
 
 ### YOU'LL NEED
 - Node.js
