@@ -10,7 +10,7 @@ export const Record = (props) => {
         <Text style={style.text}>{props.points}</Text>  
       </View>
       <View style={style.textContainer}>
-        <Text style={style.text}>{props.city}</Text>  
+        <Text style={style.text}>{props.date}</Text>  
       </View>
       <View style={style.textContainer}>
         <Text style={style.text}>{props.city}</Text>  

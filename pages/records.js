@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { StyleSheet, View, Text, Image, TextInput, SafeAreaView, ScrollView, Pressable, StatusBar } from "react-native"
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from "react-native-responsive-screen"
+import { View, Text, Image, TextInput, ScrollView, Pressable } from "react-native"
 import { Record } from "../components/record"
 import { page } from "../styles/general"
 import { navbar, topics, recordsStyle, topic } from "../styles/records"
 
 export const Records = ({navigation}) => {
-  const [records, setRecords] = useState([{nick: "lucas", points: 35, city: "Maceió"}, {nick: "Pedro", points: 5, city: "Recife"}, {nick: "Iracema", points: 6, city: "Pernam"}])
+  const [records, setRecords] = useState([{nick: "lucas", points: 35, date: "10/1", city: "Maceió"}, {nick: "Pedro", points: 5, date: "9/1", city: "Recife"}, {nick: "Iracema", points: 6, date: "2/10", city: "Pernam"}, {nick: "lucas", points: 35, date: "10/1", city: "Maceió"}, {nick: "Pedro", points: 5, date: "9/1", city: "Recife"}, {nick: "Iracema", points: 6, date: "2/10", city: "Pernam"}, {nick: "lucas", points: 35, date: "10/1", city: "Maceió"}, {nick: "Pedro", points: 5, date: "9/1", city: "Recife"}, {nick: "Iracema", points: 6, date: "2/10", city: "Pernam"}])
   const [visibleRecords, setVisibleRecords] = useState(records)
 
   function filterRecord(text) {
@@ -84,6 +83,7 @@ export const Records = ({navigation}) => {
           <Record
             key={index}
             nick={record.nick}
+            date={record.date}
             points={record.points}
             city={record.city}
           />
@@ -92,46 +92,3 @@ export const Records = ({navigation}) => {
     </View>
   )
 }
-
-const style = StyleSheet.create({
-  container: {
-    height: '100%',
-    width: '100%',
-
-    alignItems: "center",
-    backgroundColor: "#11001c"
-  },
-  navbar: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    backgroundColor: "#450BE0",
-
-    height: hp('15%'),
-    width: '100%',
-
-    child: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center"
-    },
-
-    icon: {
-      width: "100%",
-      height: "100%",
-      objectFit: 'cover'
-    },
-
-    searchBar: {
-      borderRadius: 5,
-      paddingVertical: 8, //mudar isso
-      backgroundColor: 'white'
-    }
-  },
-  records: {
-    width: '90%',
-
-    marginTop: 10
-  }
-})

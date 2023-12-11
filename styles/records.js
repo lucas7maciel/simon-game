@@ -36,8 +36,7 @@ export const navbar = StyleSheet.create({
   },
 
   back: {
-    height: "80%", 
-    
+    height: "60%", 
     aspectRatio: 1, 
     objectFit: "contain"
   },

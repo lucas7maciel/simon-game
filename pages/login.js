@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import { TextInput, View, Image, Pressable, Text, StyleSheet, SafeAreaView } from "react-native"
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from "react-native-responsive-screen"
 import { page } from "../styles/general"
 import { button, image, inputArea, messageStyle, signUp } from "../styles/login"
 
 export const Login = ({navigation}) => {
-  const [nick, setNick] = useState("lucas")
-  const [passw, setPassw] = useState("batata")
+  const [nick, setNick] = useState("")
+  const [passw, setPassw] = useState("")
 
-  const [message, setMessage] = useState("Uga Uga")
+  const [message, setMessage] = useState("Be Welcome!")
 
   function login() {
     setMessage("Logging")
@@ -33,11 +32,13 @@ export const Login = ({navigation}) => {
           style={inputArea.input}
           value={nick}
           onChangeText={setNick}
+          placeholder="Login"
         />
         <TextInput 
           style={inputArea.input}
           value={passw}
           onChangeText={setPassw}
+          placeholder="Password"
         />  
       </SafeAreaView>
     
