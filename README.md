@@ -3,7 +3,7 @@ _In production..._
 # Mobile version of the famous Simon Game!
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
 
-| First Header  | Second Header |
+| Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
