@@ -4,7 +4,7 @@ _In production..._
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
 
 <div>
-    <img align=top src="https://drive.google.com/file/d/1M9NBDoPat3wqqZp3bUFgHZDkRLU64cnY/view?usp=drive_link" />
+    <img align=top src="https://drive.google.com/file/d/1M9NBDoPat3wqqZp3bUFgHZDkRLU64cnY/view?usp=sharing" />
     <img align=top src="https://drive.google.com/file/d/1J3biuK-uOwHJgUely7aRCGc8w4X28oaC/view?usp=drive_link" />
     <img align=top src="https://drive.google.com/file/d/1wxtRQm5XirLkGvKNOUjEdq7r1DL2HpNh/view?usp=drive_link" />
 <div>
