@@ -3,7 +3,12 @@ _In production..._
 # Mobile version of the famous Simon Game!
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
 
-### YOU'LL NEED
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
+## YOU'LL NEED
 - Node.js
 - Expo Go (App)
 - Git (Optional)
