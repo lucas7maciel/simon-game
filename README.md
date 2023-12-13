@@ -4,10 +4,9 @@ _In production..._
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
 
 <div>
-    <img align=top src="![WhatsApp Image 2023-12-11 at 12 14 22](https://github.com/lucas7maciel/simon-game/assets/80663597/93c6f838-6043-4233-ba6e-4eef5e32a1ab)"
-/>
-    <img align=top src="![WhatsApp Image 2023-12-11 at 12 27 15](https://github.com/lucas7maciel/simon-game/assets/80663597/63e2e5d4-591d-4dae-a3e6-aaa734db0a71)
-"/>
+    <img align=top src="https://drive.google.com/file/d/1M9NBDoPat3wqqZp3bUFgHZDkRLU64cnY/view?usp=drive_link" />
+    <img align=top src="https://drive.google.com/file/d/1J3biuK-uOwHJgUely7aRCGc8w4X28oaC/view?usp=drive_link" />
+    <img align=top src="https://drive.google.com/file/d/1wxtRQm5XirLkGvKNOUjEdq7r1DL2HpNh/view?usp=drive_link" />
 <div>
 
 ## YOU'LL NEED
