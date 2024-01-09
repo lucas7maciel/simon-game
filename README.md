@@ -1,4 +1,4 @@
-_In production..._
+_Under development..._
 
 # Mobile version of the famous Simon Game!
 In addition to the game itself, this application has a ranking system based on the points of users with accounts registered in the application.
